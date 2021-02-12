@@ -1,8 +1,11 @@
 package il.ac.afeka.cloud.layout;
 
+import javax.validation.constraints.NotBlank;
+
 import il.ac.afeka.cloud.data.ProductEntity;
 
 public class ProductBoundary {
+	@NotBlank
 	private String id;
 
 	public ProductBoundary() {

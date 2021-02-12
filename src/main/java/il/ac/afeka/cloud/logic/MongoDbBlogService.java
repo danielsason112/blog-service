@@ -132,19 +132,24 @@ public class MongoDbBlogService implements BlogService {
 			List<PostEntity> dbRes;
 			
 			if (filterType == null)
-				throw new RuntimeException("Filter type url paramater is required and must be \"byCount\" or \"byCreation\".");
+				throw new RuntimeException("Filter type url paramater is required and must be \'byCount\' or \'byCreation\'.");
 			else
 				switch (filterType) {
 				case byCount:
-					int countSize = Integer.parseInt(filterValue);
-					dbRes = this.postDao.findAll(
-							PageRequest.of(
-									0,
-									countSize,
-									Direction.DESC,
-									SortBy.postingTimestamp.toString(),
-									DEFAULT_SECONDARY_SORT))
-							.toList();
+					try {
+						int countSize = Integer.parseInt(filterValue);
+							
+						dbRes = this.postDao.findAll(
+								PageRequest.of(
+										0,
+										countSize,
+										Direction.DESC,
+										SortBy.postingTimestamp.toString(),
+										DEFAULT_SECONDARY_SORT))
+								.toList();
+					} catch (Exception e) {
+						throw new RuntimeException("postsCount must be an Integer value");
+					}
 					break;
 				case byCreation:
 					dbRes = this.postDao.findAllByPostingTimestampGreaterThanEqual(
@@ -157,7 +162,7 @@ public class MongoDbBlogService implements BlogService {
 									DEFAULT_SECONDARY_SORT));
 					break;
 				default:
-					throw new RuntimeException("Filter type url paramater is required and must be \"byCount\" or \"byCreation\".");
+					throw new RuntimeException("Filter type url paramater is required and must be \'byCount\' or \'byCreation\'.");
 				}
 					
 			return dbRes

@@ -5,6 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import il.ac.afeka.cloud.data.PostEntity;
@@ -12,10 +16,16 @@ import il.ac.afeka.cloud.data.ProductEntity;
 import il.ac.afeka.cloud.data.UserEntity;
 
 public class PostBoundary {
+	@NotNull
+	@Valid
 	private UserBoundary user;
+	@NotNull
+	@Valid
 	private ProductBoundary product;
 	private Date postingTimestamp;
+	@NotBlank
 	private String language;
+	@NotNull
 	private Map<String, Object> postContent;
 	private Map<String, Object> moreProperties;
 	

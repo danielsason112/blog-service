@@ -1,5 +1,7 @@
 package il.ac.afeka.cloud.layout;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +32,7 @@ public class BlogController {
 			path = "/blog",
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public PostBoundary create(@RequestBody PostBoundary postBoundary) {
+	public PostBoundary create(@Valid @RequestBody PostBoundary postBoundary) {
 		return this.blogService.create(postBoundary);
 	}
 	
